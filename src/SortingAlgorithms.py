@@ -47,10 +47,10 @@ def insertionSort(l: list):
         
         yield (sorted + l)
 
-#dictionary of {name: (generator, delay)}
+#dictionary of {name: (generator, delay, length of list to display)}
 SORTS = {
-    "Bubble Sort": (bubbleSort, 10),
-    "Bogo Sort": (bogoSort, 1),
-    "Selection Sort": (selectionSort, 100),
-    "Insertion Sort": (insertionSort, 100)
+    "Bubble Sort": (bubbleSort, 10, 50),
+    "Bogo Sort": (bogoSort, 1, 10),
+    "Selection Sort": (selectionSort, 100, 100),
+    "Insertion Sort": (insertionSort, 100, 50)
 }

@@ -1,7 +1,7 @@
 import tkinter as tk
 import random
 
-from BarDisplay import BarDisplay
+from .BarDisplay import BarDisplay
 
 class SortVis(tk.Frame):
     def __init__(self, root, width, barDisplayHeight, nItems, algorithms: dict, dataPointsRange, endDelay, **kwargs):
@@ -11,6 +11,13 @@ class SortVis(tk.Frame):
         self.algorithms = algorithms
         self.dataPointsRange = dataPointsRange
         self.endDelay = endDelay
+
+        #fetching algo names and current algo
+        algoNames = list(self.algorithms.keys())
+        self.currentAlgoName = algoNames[0]
+        self.selectedAlgoVar = tk.StringVar(value=self.currentAlgoName)
+        self.selectedAlgoVar.trace("w", self.onAlgoChange)
+        self.nItems = self.algorithms[self.currentAlgoName][2]
 
         #random list
         self.randomList = [random.randint(1, self.dataPointsRange) for i in range(self.nItems)]
@@ -32,9 +39,6 @@ class SortVis(tk.Frame):
         randomizeButton.pack(side=tk.LEFT)
 
         # algorithm selector
-        algoNames = list(algorithms.keys())
-        self.selectedAlgoVar = tk.StringVar(value=algoNames[0])
-
         algoSelector = tk.OptionMenu(self, self.selectedAlgoVar, *algoNames)
         algoSelector.pack(side=tk.RIGHT)
 
@@ -67,6 +71,14 @@ class SortVis(tk.Frame):
         self.stop()
         self.randomList = [random.randint(1, self.dataPointsRange) for i in range(self.nItems)]
         self.barDisplay.display(self.randomList)
+
+    def onAlgoChange(self, var, idx, mode):
+        if (newAlgoName := self.selectedAlgoVar.get()) == self.currentAlgoName:
+            return
+        
+        self.currentAlgoName = newAlgoName
+        self.nItems = self.algorithms[self.currentAlgoName][2]
+        self.randomize()
 
     def iterate(self, gen):
         try:

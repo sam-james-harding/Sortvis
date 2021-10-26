@@ -1,7 +1,7 @@
 import tkinter as tk
 
-from SortVis import SortVis
-from SortingAlgorithms import SORTS
+from src import SortVis
+from src import SORTS
 
 root = tk.Tk()
 root.title("Sorting Algorithm Visualizer")
