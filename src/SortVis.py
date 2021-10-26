@@ -82,10 +82,8 @@ class SortVis(tk.Frame):
         self.stopButton.config(state=tk.DISABLED)
         self.startButton.config(state=tk.NORMAL)
 
-        try:
-            self.after_cancel(self.afterID)
-        except:
-            pass
+        try: self.after_cancel(self.afterID)
+        except: pass
 
         self.barDisplay.display(self.randomList)
 
